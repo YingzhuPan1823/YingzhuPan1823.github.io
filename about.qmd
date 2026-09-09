@@ -1,0 +1,19 @@
+---
+title: "About"
+---
+
+About this site
+
+## Background
+
+I was born and raised in China and completed my undergraduate studies at the University of Toronto, where I majored in Statistics and Economics. During my undergraduate studies, I became interested in using data and statistical methods to understand real-world problems.
+
+## Why Data Science
+
+I chose the MDS program because I want to strengthen my skills in data analysis, programming, and machine learning. I also hope to gain more practical experience working with real-world datasets and learn how to communicate data-driven insights clearly.
+
+
+
+## Outside of Data Science
+
+Outside of data science, I enjoy swimming, taking walks, traveling, and exploring new places. I also enjoy spending time with friends and trying different foods. I especially enjoy Cantonese cuisine, which is one of my favorite parts of the food culture I grew up with.

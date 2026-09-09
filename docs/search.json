@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Yingzhu Pan",
+    "section": "",
+    "text": "Hi, my name is Yingzhu Pan. I was born and raised in China, and I majored in Statistics and Economics during my undergraduate studies at the University of Toronto. Outside of academics, I enjoy swimming, taking walks, and exploring new places. Through the MDS program, I hope to strengthen my data analysis and programming skills, gain more hands-on experience, and learn how to apply what I have learned to solve real-world problems."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "about.html#background",
+    "href": "about.html#background",
+    "title": "About",
+    "section": "Background",
+    "text": "Background\nI was born and raised in China and completed my undergraduate studies at the University of Toronto, where I majored in Statistics and Economics. During my undergraduate studies, I became interested in using data and statistical methods to understand real-world problems."
+  },
+  {
+    "objectID": "about.html#why-data-science",
+    "href": "about.html#why-data-science",
+    "title": "About",
+    "section": "Why Data Science",
+    "text": "Why Data Science\nI chose the MDS program because I want to strengthen my skills in data analysis, programming, and machine learning. I also hope to gain more practical experience working with real-world datasets and learn how to communicate data-driven insights clearly."
+  },
+  {
+    "objectID": "about.html#outside-of-data-science",
+    "href": "about.html#outside-of-data-science",
+    "title": "About",
+    "section": "Outside of Data Science",
+    "text": "Outside of Data Science\nOutside of data science, I enjoy swimming, taking walks, traveling, and exploring new places. I also enjoy spending time with friends and trying different foods. I especially enjoy Cantonese cuisine, which is one of my favorite parts of the food culture I grew up with."
+  }
+]
