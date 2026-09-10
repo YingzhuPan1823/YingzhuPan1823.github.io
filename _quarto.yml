@@ -2,14 +2,6 @@ project:
   type: website
   output-dir: docs
 
-website:
-  title: "Yingzhu Pan"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
-
 format:
   html:
     theme:
@@ -18,5 +10,14 @@ format:
     css: styles.css
     toc: true
 
-
+website:
+  title: "Your Name"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: blog.qmd
+        text: Blog
 
