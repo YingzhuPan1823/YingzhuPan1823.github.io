@@ -2,8 +2,6 @@
 title: "About"
 ---
 
-About this site
-
 ## Background
 
 I was born and raised in China and completed my undergraduate studies at the University of Toronto, where I majored in Statistics and Economics. During my undergraduate studies, I became interested in using data and statistical methods to understand real-world problems.

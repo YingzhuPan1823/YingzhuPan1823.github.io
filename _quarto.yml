@@ -11,7 +11,7 @@ format:
     toc: true
 
 website:
-  title: "Your Name"
+  title: "Yingzhu Pan"
   navbar:
     left:
       - href: index.qmd
