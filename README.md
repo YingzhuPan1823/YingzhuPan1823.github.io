@@ -52,6 +52,8 @@ This creates the local `.venv` and installs the Python packages recorded in `uv.
 Rscript -e 'renv::restore(prompt = FALSE)'
 ```
 
+Wait for package restoration to finish successfully before rendering. If restoration fails, resolve the error before continuing.
+
 This restores the R packages recorded in `renv.lock`, including palmerpenguins, dplyr, tidyr, ggplot2, knitr, and rmarkdown.
 
 ### 3. Render the website
