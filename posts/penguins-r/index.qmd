@@ -1,0 +1,104 @@
+---
+title: "Sex Proportions Across Penguin Species"
+author: "Yingzhu Pan"
+date: "2026-09-24"
+categories: [R, Data Analysis]
+engine: knitr
+execute:
+  echo: true
+---
+
+## Introduction
+
+Are the proportions of male and female penguins similar across different species?
+I use R to compare the sex proportion across Adelie, Chinstrap, and Gentoo penguins.
+
+Data source: [Palmer Penguins](https://allisonhorst.github.io/palmerpenguins/),
+collected and made available by Dr. Kristen Gorman and
+Palmer Station Antarctica LTER. The data are available under
+the [CC0 license](https://creativecommons.org/publicdomain/zero/1.0/).
+I access the data through the R `palmerpenguins` package.
+
+Original study: Gorman, K. B., Williams, T. D., and Fraser, W. R.
+(2014). Ecological sexual dimorphism and environmental variability
+within a community of Antarctic penguins (genus Pygoscelis).
+[PLOS ONE, 9(3), e90081](https://doi.org/10.1371/journal.pone.0090081).
+
+## Load and inspect the data
+
+I load the packages and inspect the dataset. Package startup
+messages are hidden to keep the output focused on the data.
+
+```{r}
+#| label: load-data-r
+#| message: false
+
+library(palmerpenguins)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+penguin_data <- penguins
+head(penguin_data)
+```
+
+## Clean the data
+
+I keep records with non-missing species and sex. Missing values in other columns 
+will not affect this analysis.
+
+```{r}
+#| label: clean-data-r
+
+penguin_data <- penguin_data %>%
+  drop_na(species, sex) %>%
+  select(species, sex)
+
+head(penguin_data)
+```
+
+## Calculate sex proportions
+I count female and male penguins within each species, then calculate
+percentages using the number of penguins with recorded sex in that
+species as the denominator.
+
+```{r}
+#| label: sex-proportions
+
+sex_summary <- penguin_data %>%
+  group_by(species) %>%
+  count(sex) %>%
+  mutate(percent = round(n / sum(n) * 100,1)) %>%
+  ungroup()
+
+sex_summary
+```
+
+
+## Compare sex proportions visually
+
+Each species has two bars showing the percentages of female
+and male penguins with recorded sex.
+
+```{r}
+#| label: fig-sex-proportions
+#| fig-cap: "Female and male percentages within each penguin species, excluding records with missing species or sex."
+#| fig-width: 7
+#| fig-height: 5
+
+ggplot(sex_summary, aes(x = species, y = percent, fill = sex)) +
+  geom_col(position = "dodge") +
+  labs(x = "Species", y = "Percentage (%)", fill = "Sex")
+```
+
+## Conclusion
+
+The proportions of female and male penguins are similar across
+the three species in this sample. Adelie and Chinstrap penguins
+have equal proportions of females and males, while Gentoo
+penguins have a slightly higher proportion of males.
+
+These results include only penguins with recorded species and
+sex. They describe the observed sample and do not necessarily
+represent the sex proportions of the entire penguin populations.
+
