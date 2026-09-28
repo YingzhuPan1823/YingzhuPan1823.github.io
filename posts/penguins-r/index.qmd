@@ -54,6 +54,10 @@ penguin_data <- penguin_data %>%
   drop_na(species, sex) %>%
   select(species, sex)
 
+cat("Original rows:", nrow(penguins), "\n")
+cat("Rows kept:", nrow(penguin_data), "\n")
+cat("Rows removed:", nrow(penguins) - nrow(penguin_data), "\n")
+
 head(penguin_data)
 ```
 

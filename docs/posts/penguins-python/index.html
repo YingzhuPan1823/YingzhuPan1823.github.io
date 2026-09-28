@@ -167,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#load-and-inspect-the-data" id="toc-load-and-inspect-the-data" class="nav-link" data-scroll-target="#load-and-inspect-the-data">Load and inspect the data</a></li>
   <li><a href="#clean-the-data" id="toc-clean-the-data" class="nav-link" data-scroll-target="#clean-the-data">Clean the data</a></li>
   <li><a href="#summarize-body-mass-by-species" id="toc-summarize-body-mass-by-species" class="nav-link" data-scroll-target="#summarize-body-mass-by-species">Summarize body mass by species</a></li>
-  <li><a href="#visualize-average-body-mass" id="toc-visualize-average-body-mass" class="nav-link" data-scroll-target="#visualize-average-body-mass">Visualize average body mass</a></li>
+  <li><a href="#compare-body-mass-distributions" id="toc-compare-body-mass-distributions" class="nav-link" data-scroll-target="#compare-body-mass-distributions">Compare body mass distributions</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
@@ -212,7 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Do penguin species differ in body mass? In this post, I use Python to compare body mass across Adelie, Chinstrap, and Gentoo penguins.</p>
+<p>In this post, I would like to figure out the difference of penguin’s body mass across different species.I will use python as the analysis tool to compare body mass across Adelie, Chinstrap, and Gentoo penguins.</p>
 <p>Data source: <a href="https://allisonhorst.github.io/palmerpenguins/">Palmer Penguins</a>, collected and made available by Dr.&nbsp;Kristen Gorman and Palmer Station Antarctica LTER. The data are available under the <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 license</a>. I access the data through the Python <code>palmerpenguins</code> package.</p>
 <p>Original study: Gorman, K. B., Williams, T. D., and Fraser, W. R. (2014). Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus Pygoscelis). <a href="https://doi.org/10.1371/journal.pone.0090081">PLOS ONE, 9(3), e90081</a>.</p>
 </section>
@@ -229,10 +229,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Rows and columns:"</span>, penguins.shape)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>penguins.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Python executable: C:\Users\ASUS\Desktop\UBC\DSCI521\YingzhuPan1823.github.io\.venv\Scripts\pythonw.exe
+<pre><code>Python executable: C:\Users\ASUS\Desktop\UBC\DSCI521\YingzhuPan1823.github.io\.venv\Scripts\python.exe
 Rows and columns: (344, 8)</code></pre>
 </div>
-<div id="load-data" class="cell-output cell-output-display" data-execution_count="17">
+<div id="load-data" class="cell-output cell-output-display" data-execution_count="1">
 <div>
 
 
@@ -344,7 +344,7 @@ Rows removed: 2</code></pre>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>mass_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="summarize-mass" class="cell-output cell-output-display" data-execution_count="19">
+<div id="summarize-mass" class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -389,35 +389,27 @@ Rows removed: 2</code></pre>
 </div>
 </div>
 </section>
-<section id="visualize-average-body-mass" class="level2">
-<h2 class="anchored" data-anchor-id="visualize-average-body-mass">Visualize average body mass</h2>
-<p>The chart compares mean body mass across species. The vertical axis starts at zero so that bar heights represent the differences proportionally.</p>
-<div id="cell-fig-mean-mass" class="cell" data-execution_count="4">
+<section id="compare-body-mass-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="compare-body-mass-distributions">Compare body mass distributions</h2>
+<p>The boxplots show the median and spread of body mass within each species.</p>
+<div id="cell-fig-mass-boxplot" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">4</span>))</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>ax.bar(</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    mass_summary.index,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    mass_summary[<span class="st">"mean_mass_g"</span>],</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span>[<span class="st">"#4477AA"</span>, <span class="st">"#EE6677"</span>, <span class="st">"#228833"</span>]</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Species"</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Mean body mass (g)"</span>)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Average body mass by penguin species"</span>)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(bottom<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>mass_data.boxplot(column<span class="op">=</span><span class="st">"body_mass_g"</span>, by<span class="op">=</span><span class="st">"species"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">""</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Body mass by penguin species"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Species"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Body mass (g)"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
-<div id="fig-mean-mass" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-mass-boxplot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-mean-mass-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-mean-mass-output-1.png" width="664" height="374" class="figure-img">
+<div aria-describedby="fig-mass-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-mass-boxplot-output-1.png" width="664" height="456" class="figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mean-mass-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Mean body mass by penguin species, excluding records with missing species or body mass.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mass-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Body mass distributions by penguin species, excluding records with missing species or body mass.
 </figcaption>
 </figure>
 </div>
@@ -427,7 +419,7 @@ Figure&nbsp;1: Mean body mass by penguin species, excluding records with missing
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>Among the 342 penguins with non-missing species and body mass, Gentoo penguins have the highest mean body mass (5,076.0 g). Adelie and Chinstrap penguins have similar mean body masses of 3,700.7 g and 3,733.1 g, respectively.</p>
-<p>These results describe the penguins in this dataset. The chart compares group averages but does not show variation within each species. This analysis also does not account for sex or other factors that may be associated with body mass.</p>
+<p>These results describe the penguins in this dataset. The boxplots also show variation in body mass within each species. This analysis also does not account for sex or other factors that may be associated with body mass.</p>
 
 
 </section>

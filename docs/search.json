@@ -1,5 +1,54 @@
 [
   {
+    "objectID": "posts/penguins-r/index.html",
+    "href": "posts/penguins-r/index.html",
+    "title": "Sex Proportions Across Penguin Species",
+    "section": "",
+    "text": "Are the proportions of male and female penguins similar across different species? I use R to compare the sex proportion across Adelie, Chinstrap, and Gentoo penguins.\nData source: Palmer Penguins, collected and made available by Dr. Kristen Gorman and Palmer Station Antarctica LTER. The data are available under the CC0 license. I access the data through the R palmerpenguins package.\nOriginal study: Gorman, K. B., Williams, T. D., and Fraser, W. R. (2014). Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus Pygoscelis). PLOS ONE, 9(3), e90081."
+  },
+  {
+    "objectID": "posts/penguins-r/index.html#introduction",
+    "href": "posts/penguins-r/index.html#introduction",
+    "title": "Sex Proportions Across Penguin Species",
+    "section": "",
+    "text": "Are the proportions of male and female penguins similar across different species? I use R to compare the sex proportion across Adelie, Chinstrap, and Gentoo penguins.\nData source: Palmer Penguins, collected and made available by Dr. Kristen Gorman and Palmer Station Antarctica LTER. The data are available under the CC0 license. I access the data through the R palmerpenguins package.\nOriginal study: Gorman, K. B., Williams, T. D., and Fraser, W. R. (2014). Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus Pygoscelis). PLOS ONE, 9(3), e90081."
+  },
+  {
+    "objectID": "posts/penguins-r/index.html#load-and-inspect-the-data",
+    "href": "posts/penguins-r/index.html#load-and-inspect-the-data",
+    "title": "Sex Proportions Across Penguin Species",
+    "section": "Load and inspect the data",
+    "text": "Load and inspect the data\nI load the packages and inspect the dataset. Package startup messages are hidden to keep the output focused on the data.\n\nlibrary(palmerpenguins)\nlibrary(dplyr)\nlibrary(tidyr)\nlibrary(ggplot2)\n\npenguin_data &lt;- penguins\nhead(penguin_data)\n\n# A tibble: 6 × 8\n  species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g\n  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;\n1 Adelie  Torgersen           39.1          18.7               181        3750\n2 Adelie  Torgersen           39.5          17.4               186        3800\n3 Adelie  Torgersen           40.3          18                 195        3250\n4 Adelie  Torgersen           NA            NA                  NA          NA\n5 Adelie  Torgersen           36.7          19.3               193        3450\n6 Adelie  Torgersen           39.3          20.6               190        3650\n# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;"
+  },
+  {
+    "objectID": "posts/penguins-r/index.html#clean-the-data",
+    "href": "posts/penguins-r/index.html#clean-the-data",
+    "title": "Sex Proportions Across Penguin Species",
+    "section": "Clean the data",
+    "text": "Clean the data\nI keep records with non-missing species and sex. Missing values in other columns will not affect this analysis.\n\npenguin_data &lt;- penguin_data %&gt;%\n  drop_na(species, sex) %&gt;%\n  select(species, sex)\n\ncat(\"Original rows:\", nrow(penguins), \"\\n\")\n\nOriginal rows: 344 \n\ncat(\"Rows kept:\", nrow(penguin_data), \"\\n\")\n\nRows kept: 333 \n\ncat(\"Rows removed:\", nrow(penguins) - nrow(penguin_data), \"\\n\")\n\nRows removed: 11 \n\nhead(penguin_data)\n\n# A tibble: 6 × 2\n  species sex   \n  &lt;fct&gt;   &lt;fct&gt; \n1 Adelie  male  \n2 Adelie  female\n3 Adelie  female\n4 Adelie  female\n5 Adelie  male  \n6 Adelie  female"
+  },
+  {
+    "objectID": "posts/penguins-r/index.html#calculate-sex-proportions",
+    "href": "posts/penguins-r/index.html#calculate-sex-proportions",
+    "title": "Sex Proportions Across Penguin Species",
+    "section": "Calculate sex proportions",
+    "text": "Calculate sex proportions\nI count female and male penguins within each species, then calculate percentages using the number of penguins with recorded sex in that species as the denominator.\n\nsex_summary &lt;- penguin_data %&gt;%\n  group_by(species) %&gt;%\n  count(sex) %&gt;%\n  mutate(percent = round(n / sum(n) * 100,1)) %&gt;%\n  ungroup()\n\nsex_summary\n\n# A tibble: 6 × 4\n  species   sex        n percent\n  &lt;fct&gt;     &lt;fct&gt;  &lt;int&gt;   &lt;dbl&gt;\n1 Adelie    female    73    50  \n2 Adelie    male      73    50  \n3 Chinstrap female    34    50  \n4 Chinstrap male      34    50  \n5 Gentoo    female    58    48.7\n6 Gentoo    male      61    51.3"
+  },
+  {
+    "objectID": "posts/penguins-r/index.html#compare-sex-proportions-visually",
+    "href": "posts/penguins-r/index.html#compare-sex-proportions-visually",
+    "title": "Sex Proportions Across Penguin Species",
+    "section": "Compare sex proportions visually",
+    "text": "Compare sex proportions visually\nEach species has two bars showing the percentages of female and male penguins with recorded sex.\n\nggplot(sex_summary, aes(x = species, y = percent, fill = sex)) +\n  geom_col(position = \"dodge\") +\n  labs(x = \"Species\", y = \"Percentage (%)\", fill = \"Sex\")\n\n\n\n\n\n\n\nFigure 1: Female and male percentages within each penguin species, excluding records with missing species or sex."
+  },
+  {
+    "objectID": "posts/penguins-r/index.html#conclusion",
+    "href": "posts/penguins-r/index.html#conclusion",
+    "title": "Sex Proportions Across Penguin Species",
+    "section": "Conclusion",
+    "text": "Conclusion\nThe proportions of female and male penguins are similar across the three species in this sample. Adelie and Chinstrap penguins have equal proportions of females and males, while Gentoo penguins have a slightly higher proportion of males.\nThese results include only penguins with recorded species and sex. They describe the observed sample and do not necessarily represent the sex proportions of the entire penguin populations."
+  },
+  {
     "objectID": "posts/first-weeks/index.html",
     "href": "posts/first-weeks/index.html",
     "title": "My first weeks in MDS",
@@ -11,7 +60,7 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "My first weeks in MDS\n\n\n\n\n\n\n\n\nSep 10, 2026\n\n\nYingzhu Pan\n\n\n\n\n\nNo matching items"
+    "text": "Comparing Body Mass Across Penguin Species\n\n\n\n\n\n\n\n\nSep 24, 2026\n\n\nYingzhu Pan\n\n\n\n\n\n\n\n\n\n\n\n\nSex Proportions Across Penguin Species\n\n\n\n\n\n\n\n\nSep 24, 2026\n\n\nYingzhu Pan\n\n\n\n\n\n\n\n\n\n\n\n\nMy first weeks in MDS\n\n\n\n\n\n\n\n\nSep 10, 2026\n\n\nYingzhu Pan\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -47,5 +96,54 @@
     "title": "Yingzhu Pan",
     "section": "",
     "text": "Hi, my name is Yingzhu Pan. I was born and raised in China, and I majored in Statistics and Economics during my undergraduate studies at the University of Toronto. Outside of academics, I enjoy swimming, taking walks, and exploring new places.\nThrough the MDS program, I hope to strengthen my data analysis and programming skills, gain more hands-on experience, and learn how to apply what I have learned to solve real-world problems."
+  },
+  {
+    "objectID": "posts/penguins-python/index.html",
+    "href": "posts/penguins-python/index.html",
+    "title": "Comparing Body Mass Across Penguin Species",
+    "section": "",
+    "text": "In this post, I would like to figure out the difference of penguin’s body mass across different species.I will use python as the analysis tool to compare body mass across Adelie, Chinstrap, and Gentoo penguins.\nData source: Palmer Penguins, collected and made available by Dr. Kristen Gorman and Palmer Station Antarctica LTER. The data are available under the CC0 license. I access the data through the Python palmerpenguins package.\nOriginal study: Gorman, K. B., Williams, T. D., and Fraser, W. R. (2014). Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus Pygoscelis). PLOS ONE, 9(3), e90081."
+  },
+  {
+    "objectID": "posts/penguins-python/index.html#introduction",
+    "href": "posts/penguins-python/index.html#introduction",
+    "title": "Comparing Body Mass Across Penguin Species",
+    "section": "",
+    "text": "In this post, I would like to figure out the difference of penguin’s body mass across different species.I will use python as the analysis tool to compare body mass across Adelie, Chinstrap, and Gentoo penguins.\nData source: Palmer Penguins, collected and made available by Dr. Kristen Gorman and Palmer Station Antarctica LTER. The data are available under the CC0 license. I access the data through the Python palmerpenguins package.\nOriginal study: Gorman, K. B., Williams, T. D., and Fraser, W. R. (2014). Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus Pygoscelis). PLOS ONE, 9(3), e90081."
+  },
+  {
+    "objectID": "posts/penguins-python/index.html#load-and-inspect-the-data",
+    "href": "posts/penguins-python/index.html#load-and-inspect-the-data",
+    "title": "Comparing Body Mass Across Penguin Species",
+    "section": "Load and inspect the data",
+    "text": "Load and inspect the data\nFirst, I load the dataset and inspect its dimensions and first five rows.\n\nimport sys\nfrom palmerpenguins import load_penguins\n\nprint(\"Python executable:\", sys.executable)\n\npenguins = load_penguins()\nprint(\"Rows and columns:\", penguins.shape)\npenguins.head()\n\nPython executable: C:\\Users\\ASUS\\Desktop\\UBC\\DSCI521\\YingzhuPan1823.github.io\\.venv\\Scripts\\python.exe\nRows and columns: (344, 8)\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007"
+  },
+  {
+    "objectID": "posts/penguins-python/index.html#clean-the-data",
+    "href": "posts/penguins-python/index.html#clean-the-data",
+    "title": "Comparing Body Mass Across Penguin Species",
+    "section": "Clean the data",
+    "text": "Clean the data\nFor this comparison, I need species and body mass. I remove rows with missing values in either column, while keeping rows that have missing values in unrelated columns.\n\nmass_data = penguins.dropna(subset=[\"species\", \"body_mass_g\"]).copy()\n\nprint(\"Original rows:\", len(penguins))\nprint(\"Rows kept:\", len(mass_data))\nprint(\"Rows removed:\", len(penguins) - len(mass_data))\n\nOriginal rows: 344\nRows kept: 342\nRows removed: 2"
+  },
+  {
+    "objectID": "posts/penguins-python/index.html#summarize-body-mass-by-species",
+    "href": "posts/penguins-python/index.html#summarize-body-mass-by-species",
+    "title": "Comparing Body Mass Across Penguin Species",
+    "section": "Summarize body mass by species",
+    "text": "Summarize body mass by species\nI calculate the sample size, mean, and median body mass for each species. Body mass is measured in grams.\n\nmass_summary = (\n    mass_data.groupby(\"species\")\n    .agg(\n        sample_size=(\"body_mass_g\", \"count\"),\n        mean_mass_g=(\"body_mass_g\", \"mean\"),\n        median_mass_g=(\"body_mass_g\", \"median\")\n    )\n    .round(1)\n)\n\nmass_summary\n\n\n\n\n\n\n\n\nsample_size\nmean_mass_g\nmedian_mass_g\n\n\nspecies\n\n\n\n\n\n\n\nAdelie\n151\n3700.7\n3700.0\n\n\nChinstrap\n68\n3733.1\n3700.0\n\n\nGentoo\n123\n5076.0\n5000.0"
+  },
+  {
+    "objectID": "posts/penguins-python/index.html#compare-body-mass-distributions",
+    "href": "posts/penguins-python/index.html#compare-body-mass-distributions",
+    "title": "Comparing Body Mass Across Penguin Species",
+    "section": "Compare body mass distributions",
+    "text": "Compare body mass distributions\nThe boxplots show the median and spread of body mass within each species.\n\nimport matplotlib.pyplot as plt\n\nmass_data.boxplot(column=\"body_mass_g\", by=\"species\")\nplt.suptitle(\"\")\nplt.title(\"Body mass by penguin species\")\nplt.xlabel(\"Species\")\nplt.ylabel(\"Body mass (g)\")\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\nFigure 1: Body mass distributions by penguin species, excluding records with missing species or body mass."
+  },
+  {
+    "objectID": "posts/penguins-python/index.html#conclusion",
+    "href": "posts/penguins-python/index.html#conclusion",
+    "title": "Comparing Body Mass Across Penguin Species",
+    "section": "Conclusion",
+    "text": "Conclusion\nAmong the 342 penguins with non-missing species and body mass, Gentoo penguins have the highest mean body mass (5,076.0 g). Adelie and Chinstrap penguins have similar mean body masses of 3,700.7 g and 3,733.1 g, respectively.\nThese results describe the penguins in this dataset. The boxplots also show variation in body mass within each species. This analysis also does not account for sex or other factors that may be associated with body mass."
   }
 ]
